@@ -17,10 +17,24 @@ class ThompsonSampling:
 
     def fit(self, train, context_features, categorical_features, numeric_features):
         """Treina modelos bootstrap independentes para cada braço."""
+
         for arm in self.arms:
+            print(f"FIT: iniciando braço {arm}", flush=True)
+
             arm_data = train[train["contact"] == arm].copy()
 
+            print(
+                f"FIT: {arm} possui {len(arm_data)} registros",
+                flush=True,
+            )
+
             for i in range(self.n_bootstraps):
+                if i % 10 == 0:
+                    print(
+                        f"FIT: {arm} bootstrap {i}/{self.n_bootstraps}",
+                        flush=True,
+                    )
+
                 bootstrap_sample = arm_data.sample(
                     n=len(arm_data),
                     replace=True,
@@ -60,6 +74,8 @@ class ThompsonSampling:
 
                 model.fit(X_bootstrap, y_bootstrap)
                 self.bootstrap_models[arm].append(model)
+
+            print(f"FIT: braço {arm} concluído", flush=True)
 
     def recommend(self, customer):
         """Seleciona um braço usando Thompson Sampling contextual."""
