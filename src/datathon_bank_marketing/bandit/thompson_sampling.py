@@ -51,7 +51,7 @@ class ThompsonSampling:
                         (
                             "model",
                             LogisticRegression(
-                                max_iter=1000,
+                                max_iter=100,
                                 random_state=42,
                             ),
                         ),
