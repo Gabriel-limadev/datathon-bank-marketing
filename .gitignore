@@ -27,6 +27,7 @@ htmlcov/
 
 # MLflow
 mlruns/
+mlflow.db
 
 # Data
 data/raw/*
