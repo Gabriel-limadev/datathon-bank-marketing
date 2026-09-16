@@ -11,7 +11,6 @@ def prepare_data(df):
     df = df.copy()
 
     if "y" in df.columns:
-        print('-'*10, 'AQUI4')
         df["reward"] = (df["y"] == "yes").astype(int)
         
     df = df.drop_duplicates()
