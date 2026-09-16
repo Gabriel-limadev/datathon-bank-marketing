@@ -5,7 +5,7 @@ import psutil
 from fastapi import FastAPI, HTTPException, Request
 
 from app.schemas import Customer
-from app.services import recommend_service, train_service
+from app.services import download_service, recommend_service, train_service
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s | %(levelname)s | %(message)s"
@@ -62,6 +62,14 @@ def health():
         "memory_percent": psutil.virtual_memory().percent,
     }
 
+
+@app.post("/download", tags=["Data"])
+def download_dataset():
+    try:
+        return download_service()
+    except (KeyError, ValueError, TypeError) as e:
+        raise HTTPException(status_code=500, detail=str(e)) from e
+    
 
 @app.post("/train", tags=["Training"])
 def train():

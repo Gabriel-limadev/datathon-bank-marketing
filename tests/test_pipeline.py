@@ -2,7 +2,7 @@ import pandas as pd
 
 from src.datathon_bank_marketing.bandit.thompson_sampling import ThompsonSampling
 from src.datathon_bank_marketing.pipeline.train import (
-    load_data,
+    download_data,
     prepare_data,
     split_data,
     train_bandit,
@@ -116,7 +116,7 @@ def test_recommend():
 
 def test_load_data():
 
-    df = load_data()
+    df = download_data()
 
     assert not df.empty
     assert "age" in df.columns

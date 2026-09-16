@@ -12,7 +12,7 @@ CSV_PATH = RAW_DIR / "bank-additional-full.csv"
 ZIP_PATH = RAW_DIR / "bank_marketing.zip"
 
 
-def load_data() -> pd.DataFrame:
+def download_data() -> pd.DataFrame:
     """
     Realiza o download do dataset do UCI, extrai o CSV e o salva em data/raw/bank-additional-full.csv.
     Se o CSV já existir, ele não será baixado novamente.

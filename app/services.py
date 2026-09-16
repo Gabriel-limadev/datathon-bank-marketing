@@ -3,6 +3,7 @@ from pathlib import Path
 import pandas as pd
 
 from src.datathon_bank_marketing.bandit.thompson_sampling import ThompsonSampling
+from src.datathon_bank_marketing.data.download import download_data
 from src.datathon_bank_marketing.data.preprocess import (
     prepare_data,
     save_processed_data,
@@ -21,6 +22,20 @@ bandit = ThompsonSampling.load(
     MODEL_PATH,
     arms=ARMS,
 )
+
+
+def download_service():
+    """Baixa e prepara o dataset do UCI, retornando um DataFrame."""
+
+    try:
+        df = download_data()
+        return {
+            "message": "Dataset baixado e preparado com sucesso.",
+            "rows": len(df),
+            "columns": len(df.columns),
+        }
+    except (KeyError, ValueError, TypeError) as e:
+            raise ValueError(f"Erro ao baixar dados: {e!s}") from e
 
 
 def recommend_service(customer):
