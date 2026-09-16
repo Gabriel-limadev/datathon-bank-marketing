@@ -69,20 +69,41 @@ def recommend_service(customer):
 def train_service():
     """Retreina o Thompson Sampling e salva os novos modelos."""
 
+    print("TRAIN: início", flush=True)
+
+    print("TRAIN: carregando dados", flush=True)
     df = load_data()
+    print(f"TRAIN: dados carregados: {len(df)} linhas", flush=True)
+
+    print("TRAIN: preparando dados", flush=True)
     df = prepare_data(df)
+    print(f"TRAIN: dados preparados: {len(df)} linhas", flush=True)
+
+    print("TRAIN: salvando dados processados", flush=True)
     save_processed_data(df)
+    print("TRAIN: dados processados salvos", flush=True)
 
+    print("TRAIN: fazendo split", flush=True)
     train, _ = split_data(df)
+    print(f"TRAIN: treino criado: {len(train)} linhas", flush=True)
 
+    print("TRAIN: iniciando treinamento do bandit", flush=True)
     new_bandit = train_bandit(train)
-    new_bandit.save(MODEL_PATH)
+    print("TRAIN: treinamento concluído", flush=True)
 
+    print("TRAIN: salvando modelo", flush=True)
+    new_bandit.save(MODEL_PATH)
+    print("TRAIN: modelo salvo", flush=True)
+
+    print("TRAIN: carregando modelo salvo", flush=True)
     global bandit
     bandit = ThompsonSampling.load(
         MODEL_PATH,
         arms=ARMS,
     )
+    print("TRAIN: modelo carregado", flush=True)
+
+    print("TRAIN: fim", flush=True)
 
     return {
         "status": "success",
