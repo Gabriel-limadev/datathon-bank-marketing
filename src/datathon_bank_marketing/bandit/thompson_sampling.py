@@ -72,8 +72,13 @@ class ThompsonSampling:
                     ]
                 )
 
-                model.fit(X_bootstrap, y_bootstrap)
-                self.bootstrap_models[arm].append(model)
+                print(f"FIT: {arm} bootstrap {i} - iniciando model.fit()", flush=True)
+
+            model.fit(X_bootstrap, y_bootstrap)
+
+            print(f"FIT: {arm} bootstrap {i} - model.fit() concluído", flush=True)
+
+            self.bootstrap_models[arm].append(model)
 
             print(f"FIT: braço {arm} concluído", flush=True)
 
