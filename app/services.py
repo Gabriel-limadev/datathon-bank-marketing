@@ -3,12 +3,15 @@ from pathlib import Path
 import pandas as pd
 
 from src.datathon_bank_marketing.bandit.thompson_sampling import ThompsonSampling
+from src.datathon_bank_marketing.data.preprocess import (
+    prepare_data,
+    save_processed_data,
+)
 from src.datathon_bank_marketing.pipeline.train import (
     load_data,
     split_data,
     train_bandit,
 )
-from src.datathon_bank_marketing.data.preprocess import prepare_data, save_processed_data
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 MODEL_PATH = BASE_DIR / "models" / "bootstrap"

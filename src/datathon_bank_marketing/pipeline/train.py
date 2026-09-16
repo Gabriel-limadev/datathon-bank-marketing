@@ -4,7 +4,10 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 
 from src.datathon_bank_marketing.bandit.thompson_sampling import ThompsonSampling
-from src.datathon_bank_marketing.data.preprocess import prepare_data, save_processed_data
+from src.datathon_bank_marketing.data.preprocess import (
+    prepare_data,
+    save_processed_data,
+)
 
 BASE_DIR = Path(__file__).resolve().parents[3]
 RAW_DATA_PATH = BASE_DIR / "data" / "raw" / "bank-additional-full.csv"

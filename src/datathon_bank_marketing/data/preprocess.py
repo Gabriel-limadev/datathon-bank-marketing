@@ -2,7 +2,6 @@ from pathlib import Path
 
 import pandas as pd
 
-
 BASE_DIR = Path(__file__).resolve().parents[3]
 PROCESSED_PATH = BASE_DIR / "data" / "processed" / "bank_marketing_processed.csv"
 
