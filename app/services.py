@@ -5,10 +5,10 @@ import pandas as pd
 from src.datathon_bank_marketing.bandit.thompson_sampling import ThompsonSampling
 from src.datathon_bank_marketing.pipeline.train import (
     load_data,
-    prepare_data,
     split_data,
     train_bandit,
 )
+from src.datathon_bank_marketing.data.preprocess import prepare_data, save_processed_data
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 MODEL_PATH = BASE_DIR / "models" / "bootstrap"
@@ -24,33 +24,23 @@ def recommend_service(customer):
     """Gera uma recomendação de canal para um cliente."""
 
     try:
+        
         customer_df = pd.DataFrame([customer])
-
-        # Criar age_group da mesma forma usada no treinamento
-        customer_df["age_group"] = pd.cut(
-            customer_df["age"],
-            bins=[0, 25, 35, 45, 55, 65, 75, float("inf")],
-            labels=[
-                "Até 25",
-                "26-35",
-                "36-45",
-                "46-55",
-                "56-65",
-                "66-75",
-                "76+",
-            ],
-        )
-
+        
+        customer_df = prepare_data(customer_df)
         # Ajustar nomes das colunas para os nomes usados no treinamento
         customer_df = customer_df.rename(
             columns={
                 "emp_var_rate": "emp.var.rate",
                 "cons_price_idx": "cons.price.idx",
                 "nr_employed": "nr.employed",
+                "cons_conf_idx": "cons.conf.idx",
             }
         )
-
+        
         selected_arm, probabilities = bandit.recommend(customer_df)
+        
+        
         return {
             "recommended_arm": selected_arm,
             "estimated_probability": probabilities[selected_arm],
@@ -63,6 +53,7 @@ def train_service():
 
     df = load_data()
     df = prepare_data(df)
+    save_processed_data(df)
 
     train, _ = split_data(df)
 

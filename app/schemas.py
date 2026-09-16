@@ -9,10 +9,14 @@ class Customer(BaseModel):
     default: str
     housing: str
     loan: str
-    poutcome: str
+    month: str
+    day_of_week: str
     campaign: int
+    pdays: int
     previous: int
+    poutcome: str
     emp_var_rate: float
     cons_price_idx: float
+    cons_conf_idx: float
     euribor3m: float
     nr_employed: float

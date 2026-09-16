@@ -1,10 +1,9 @@
-from pathlib import Path
-from zipfile import ZipFile
-from urllib.request import urlretrieve
 import shutil
+from pathlib import Path
+from urllib.request import urlretrieve
+from zipfile import ZipFile
 
 import pandas as pd
-
 
 URL = "https://archive.ics.uci.edu/static/public/222/bank+marketing.zip"
 
@@ -14,10 +13,10 @@ ZIP_PATH = RAW_DIR / "bank_marketing.zip"
 
 
 def load_data() -> pd.DataFrame:
-    '''
+    """
     Realiza o download do dataset do UCI, extrai o CSV e o salva em data/raw/bank-additional-full.csv.
     Se o CSV já existir, ele não será baixado novamente.
-    '''
+    """
     RAW_DIR.mkdir(parents=True, exist_ok=True)
 
     # Se o CSV já existe, não baixa novamente
@@ -43,9 +42,7 @@ def load_data() -> pd.DataFrame:
             zip_ref.extractall(temp_dir)
 
         # Localiza bank-additional.zip
-        additional_zip = next(
-            temp_dir.rglob("bank-additional.zip")
-        )
+        additional_zip = next(temp_dir.rglob("bank-additional.zip"))
 
         # Extrai bank-additional.zip
         additional_dir = temp_dir / "bank-additional"
@@ -54,15 +51,10 @@ def load_data() -> pd.DataFrame:
             zip_ref.extractall(additional_dir)
 
         # Localiza o CSV principal
-        source_csv = next(
-            additional_dir.rglob("bank-additional-full.csv")
-        )
+        source_csv = next(additional_dir.rglob("bank-additional-full.csv"))
 
         # Move o CSV para data/raw/
-        shutil.move(
-            str(source_csv),
-            str(CSV_PATH)
-        )
+        shutil.move(str(source_csv), str(CSV_PATH))
 
         print("Dataset preparado com sucesso.")
 
@@ -75,7 +67,4 @@ def load_data() -> pd.DataFrame:
             shutil.rmtree(temp_dir)
 
     # Carrega o CSV
-    return pd.read_csv(
-        CSV_PATH,
-        sep=";"
-    )
+    return pd.read_csv(CSV_PATH, sep=";")
