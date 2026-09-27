@@ -17,6 +17,7 @@ dependencies = [
     "seaborn (>=0.13.2,<0.14.0)",
     "statsmodels (>=0.15.0,<0.16.0)",
     "mlflow (>=3.16.0,<4.0.0)",
+    "psycopg2-binary (>=2.9.13,<3.0.0)"
 ]
 
 [build-system]
