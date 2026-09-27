@@ -35,7 +35,7 @@ categorical_features = [
 
 numeric_features = []
 
-N_BOOTSTRAPS = 100
+N_BOOTSTRAPS = 50
 
 
 def load_data():

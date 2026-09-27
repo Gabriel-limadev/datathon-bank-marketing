@@ -9,7 +9,7 @@ from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
 
 class ThompsonSampling:
-    def __init__(self, arms, n_bootstraps=20):
+    def __init__(self, arms, n_bootstraps=50):
         self.arms = arms
         self.n_bootstraps = n_bootstraps
         self.bootstrap_models = {arm: [] for arm in arms}
