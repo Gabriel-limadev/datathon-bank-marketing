@@ -29,12 +29,6 @@ class ThompsonSampling:
             )
 
             for i in range(self.n_bootstraps):
-                if i % 10 == 0:
-                    print(
-                        f"FIT: {arm} bootstrap {i}/{self.n_bootstraps}",
-                        flush=True,
-                    )
-
                 bootstrap_sample = arm_data.sample(
                     n=len(arm_data),
                     replace=True,
@@ -72,15 +66,13 @@ class ThompsonSampling:
                     ]
                 )
 
-                print(f"FIT: {arm} bootstrap {i} - iniciando model.fit()", flush=True)
+                model.fit(X_bootstrap, y_bootstrap)
 
-            model.fit(X_bootstrap, y_bootstrap)
+                print(f"FIT: {arm} bootstrap {i} - model.fit() concluído", flush=True)
 
-            print(f"FIT: {arm} bootstrap {i} - model.fit() concluído", flush=True)
+                self.bootstrap_models[arm].append(model)
 
-            self.bootstrap_models[arm].append(model)
-
-            print(f"FIT: braço {arm} concluído", flush=True)
+                print(f"FIT: braço {arm} concluído", flush=True)
 
     def recommend(self, customer):
         """Seleciona um braço usando Thompson Sampling contextual."""
