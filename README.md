@@ -14,8 +14,8 @@ https://www.kaggle.com/datasets/henriqueyamahata/bank-marketing
 ---
 
 ## ▶️ Video Apresentação
-``` code
-
+```
+https://youtu.be/RCxf4VRPe3o
 ```
 
 ---
